@@ -38,6 +38,9 @@ namespace Simplex
         public double[] Delta { get; set; }
         public double[] Theta { get; set; }
 
+        public bool FinalTable { get; private set; } = false;
+
+
         public StepTable(double[] mainCoefficient, int[] basisIndex, double[] freeMember, double[][] restrictionCoefficient)
         {
             MainCoefficient = mainCoefficient;
@@ -45,6 +48,8 @@ namespace Simplex
             FreeMember = freeMember;
             RestrictionCoefficient = restrictionCoefficient;
             Value = FindValue();
+            Delta = CalculateDelta();
+            FinalTable = Delta.All((e) => e <= 0);
         }
 
         private double FindValue()
@@ -52,6 +57,19 @@ namespace Simplex
             return FreeMember
                 .Select((e, i) =>  e * MainCoefficient[BasisIndex[i]])
                 .Aggregate((f, s) => f + s);
+        }
+        private double[] CalculateDelta()
+        {
+            return MainCoefficient.Select
+                (
+                    (c, j) =>
+                    {
+                        var sum = c;
+                        for (int i = 0; i < RestrictionQuantity; i++)
+                            sum -= RestrictionCoefficient[i][j] * MainCoefficient[BasisIndex[i]];
+                        return sum;
+                    }
+                ).ToArray();
         }
 
         

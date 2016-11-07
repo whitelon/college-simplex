@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Simplex.Test
 {
@@ -35,11 +36,27 @@ namespace Simplex.Test
                 )
             }
             );
+
         [TestMethod]
         public void TestingFindValueMethod()
         {
-            Assert.AreEqual(Tables[0].Value, 0);
-            Assert.AreEqual(Tables[1].Value, 6);
+            Assert.AreEqual(0, Tables[0].Value);
+            Assert.AreEqual(6, Tables[1].Value);
         }
+
+        [TestMethod]
+        public void TestingCalculateDelta()
+        {
+            var d1 = new double[] { 2, 3, 0, 0 };
+            var d2 = new double[] { -1, 0, -3, 0 };
+            for (int i = 0; i < d1.Length; i++)
+            {
+                Assert.AreEqual(d1[i], Tables[0].Delta[i]);
+
+                Assert.AreEqual(d2[i], Tables[1].Delta[i]);
+            }
+            
+        }
+
     }
 }
