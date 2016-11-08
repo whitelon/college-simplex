@@ -35,8 +35,10 @@ namespace Simplex
 
         public double Value { get; private set; }
 
-        public double[] Delta { get; set; }
-        public double[] Theta { get; set; }
+        public double[] Delta { get; private set; }
+        public int P { get; private set; } = -1;
+        public double[] Theta { get; private set; }
+        public int Q { get; private set; } = -1;
 
         public bool FinalTable { get; private set; } = false;
 
@@ -49,7 +51,12 @@ namespace Simplex
             RestrictionCoefficient = restrictionCoefficient;
             Value = FindValue();
             Delta = CalculateDelta();
-            FinalTable = Delta.All((e) => e <= 0);
+            FinalTable = Delta.All(e => e <= 0);
+
+            if (FinalTable) return;
+            P = Array.IndexOf(Delta, Delta.Max());
+            Theta = CalculateTheta(P);
+            Q = Array.IndexOf(Theta, Theta.Where(e => e >= 0).Min());
         }
 
         private double FindValue()
@@ -70,6 +77,20 @@ namespace Simplex
                         return sum;
                     }
                 ).ToArray();
+        }
+        private double[] CalculateTheta(int p)
+        {
+            if (FinalTable) return null;
+
+            var result = new double[RestrictionQuantity];
+            
+            for (int i = 0; i < RestrictionQuantity; i++)
+            {
+                if (RestrictionCoefficient[i][p] < 1) result[i] = -1;
+                else result[i] = FreeMember[i] / RestrictionCoefficient[i][p];
+            }
+            
+            return result;
         }
 
         

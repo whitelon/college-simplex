@@ -38,7 +38,7 @@ namespace Simplex.Test
             );
 
         [TestMethod]
-        public void TestingFindValueMethod()
+        public void TestingFindValue()
         {
             Assert.AreEqual(0, Tables[0].Value);
             Assert.AreEqual(6, Tables[1].Value);
@@ -58,5 +58,35 @@ namespace Simplex.Test
             
         }
 
+        [TestMethod]
+        public void TestingFinalTable()
+        {
+            Assert.AreEqual(false, Tables[0].FinalTable);
+            Assert.AreEqual(true, Tables[1].FinalTable);
+        }
+
+        [TestMethod]
+        public void TestingP()
+        {
+            Assert.AreEqual(1, Tables[0].P);
+            Assert.AreEqual(-1, Tables[1].P);
+        }
+        [TestMethod]
+        public void TestingCalculateTheta()
+        {
+            var d1 = new double[] { 2, -1 };
+            for (int i = 0; i < d1.Length; i++)
+            {
+                Assert.AreEqual(d1[i], Tables[0].Theta[i]);
+            }
+
+            Assert.IsNull(Tables[1].Theta);
+        }
+        [TestMethod]
+        public void TestingQ()
+        {
+            Assert.AreEqual(0, Tables[0].Q);
+            Assert.AreEqual(-1, Tables[1].Q);
+        }
     }
 }
