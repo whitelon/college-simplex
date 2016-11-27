@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Simplex
 {
-    class Solution
+    public class Solution
     {
         public List<StepTable> Steps { get; private set; } = new List<Simplex.StepTable>();
         public FunctionType Type { get; private set; }
@@ -24,6 +24,15 @@ namespace Simplex
         {
             Steps.Add(zeroTable);
             while (!Steps.Last().FinalTable) Steps.Add(NextTable(Steps.Last()));
+
+            var lastTable = Steps.Last();
+
+            Value = lastTable.Value;
+
+            Unknowns = new double[lastTable.UnknownQuantity];
+            int i = 0;
+            foreach (var basisIndex in lastTable.BasisIndex)
+                Unknowns[basisIndex] = lastTable.FreeMember[i++];
         }
 
         private StepTable NextTable(StepTable oldTable)
@@ -40,15 +49,25 @@ namespace Simplex
             var basis = new int[m];
             oldTable.BasisIndex.CopyTo(basis, 0);
             var b = new double[m];
-            oldTable.FreeMember.CopyTo(basis, 0);
+            oldTable.FreeMember.CopyTo(b, 0);
             var a = new double[m][];
             var i = 0;
-            foreach (var row in oldTable.RestrictionCoefficient) row.CopyTo(a[i++] = new double[n], 0);
+            foreach (var row in oldTable.RestrictionCoefficient)
+                row.CopyTo(a[i++] = new double[n], 0);
 
             //changing values
             basis[q] = p;
             a[q] = a[q].Select(e => e / mainElement).ToArray();
             b[q] = oldTable.FreeMember[q] / mainElement;
+            for (i = 0; i < m; i++)
+            {
+                if (i == q) continue;
+                b[i] = b[i] - b[q] * oldTable.RestrictionCoefficient[i][p];
+                for(int j = 0; j < n; j++)
+                {
+                    a[i][j] = a[i][j] - a[q][j] * oldTable.RestrictionCoefficient[i][p]; 
+                }
+            }
 
             return new StepTable(c, basis, b, a);
         }

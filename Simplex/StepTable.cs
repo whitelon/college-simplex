@@ -86,7 +86,7 @@ namespace Simplex
             
             for (int i = 0; i < RestrictionQuantity; i++)
             {
-                if (RestrictionCoefficient[i][p] < 1) result[i] = -1;
+                if (RestrictionCoefficient[i][p] <= 0) result[i] = -1;
                 else result[i] = FreeMember[i] / RestrictionCoefficient[i][p];
             }
             
