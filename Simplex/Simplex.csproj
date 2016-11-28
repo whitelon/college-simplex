@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EquatonParser.cs" />
     <Compile Include="Solution.cs" />
     <Compile Include="StepTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
