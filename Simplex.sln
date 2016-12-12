@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplex", "Simplex\Simplex.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplex.Test", "Simplex.Test\Simplex.Test.csproj", "{A4EE31E2-7812-426B-B181-510C05E8B83D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplex.Console", "Simplex.Console\Simplex.Console.csproj", "{B4743423-140B-4505-A3C0-966CE1B35CC4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplex.WinForms", "Simplex.WinForms\Simplex.WinForms.csproj", "{02272041-A706-4637-ABE3-1040EB15C7D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{A4EE31E2-7812-426B-B181-510C05E8B83D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4EE31E2-7812-426B-B181-510C05E8B83D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4EE31E2-7812-426B-B181-510C05E8B83D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B4743423-140B-4505-A3C0-966CE1B35CC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B4743423-140B-4505-A3C0-966CE1B35CC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B4743423-140B-4505-A3C0-966CE1B35CC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B4743423-140B-4505-A3C0-966CE1B35CC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02272041-A706-4637-ABE3-1040EB15C7D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02272041-A706-4637-ABE3-1040EB15C7D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02272041-A706-4637-ABE3-1040EB15C7D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02272041-A706-4637-ABE3-1040EB15C7D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
