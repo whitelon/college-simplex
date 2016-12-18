@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Simplex.WinForms
 {
-    public partial class SolutionForm : Form
+    public partial class HelpForm : Form
     {
-        public SolutionForm()
+        public HelpForm()
         {
             InitializeComponent();
         }

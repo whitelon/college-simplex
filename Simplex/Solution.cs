@@ -6,11 +6,22 @@ using System.Threading.Tasks;
 
 namespace Simplex
 {
+    /// <summary>
+    /// Описывает решение задачи линейного программирования
+    /// </summary>
     public class Solution
     {
+        /// <summary>
+        /// Список таблиц-шагов решения
+        /// </summary>
         public List<StepTable> Steps { get; private set; } = new List<Simplex.StepTable>();
-        public FunctionType Type { get; private set; }
+        /// <summary>
+        /// Оптимальное значение главной функции
+        /// </summary>
         public double Value { get; private set; }
+        /// <summary>
+        /// Вектор значений неизвестных, при которых достигается оптимальное значение
+        /// </summary>
         public double[] Unknowns { get; private set; }
 
 
@@ -22,11 +33,13 @@ namespace Simplex
 
         public Solution(StepTable zeroTable)
         {
+            //добавляем нулевую таблицу в список
             Steps.Add(zeroTable);
+            //рассчитываем новые таблицы, пока не достигнем оптимального решения
             while (!Steps.Last().FinalTable) Steps.Add(NextTable(Steps.Last()));
 
             var lastTable = Steps.Last();
-
+            //Заполняем значение функции и переменных
             Value = lastTable.Value;
 
             Unknowns = new double[lastTable.UnknownQuantity];
@@ -34,7 +47,11 @@ namespace Simplex
             foreach (var basisIndex in lastTable.BasisIndex)
                 Unknowns[basisIndex] = lastTable.FreeMember[i++];
         }
-
+        /// <summary>
+        /// Рассчитывает новую таблицу
+        /// </summary>
+        /// <param name="oldTable">Предыдущая таблица</param>
+        /// <returns>Новая таблица</returns>
         private StepTable NextTable(StepTable oldTable)
         {
             var n = oldTable.UnknownQuantity;
@@ -43,7 +60,7 @@ namespace Simplex
             var p = oldTable.P;
             var mainElement = oldTable.RestrictionCoefficient[q][p];
 
-            //copying values
+            //Копирование значений
             var c = new double[n];
             oldTable.MainCoefficient.CopyTo(c, 0);
             var basis = new int[m];
@@ -55,7 +72,7 @@ namespace Simplex
             foreach (var row in oldTable.RestrictionCoefficient)
                 row.CopyTo(a[i++] = new double[n], 0);
 
-            //changing values
+            //Изменение значений по формулам
             basis[q] = p;
             a[q] = a[q].Select(e => e / mainElement).ToArray();
             b[q] = oldTable.FreeMember[q] / mainElement;

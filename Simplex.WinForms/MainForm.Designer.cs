@@ -87,6 +87,7 @@
             this.btnHelp.TabIndex = 5;
             this.btnHelp.Text = "Помощь";
             this.btnHelp.UseVisualStyleBackColor = true;
+            this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
             // 
             // btnNext
             // 
